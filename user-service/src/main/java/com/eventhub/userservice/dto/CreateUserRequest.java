@@ -4,8 +4,6 @@ package com.eventhub.userservice.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-import com.eventhub.userservice.entity.UserRole;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +17,8 @@ public class CreateUserRequest {
     @NotBlank
     @Email
     private String email;
-
-    private UserRole role;
+    
+    @NotBlank
+    private String password;
 
 }

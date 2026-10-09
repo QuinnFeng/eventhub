@@ -1,33 +1,31 @@
-HELP.md
+# ===== Java / Maven =====
 target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+*.class
+*.jar
+*.war
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
+# ===== Eclipse =====
 .project
-.settings
-.springBeans
-.sts4-cache
+.classpath
+.settings/
+.factorypath
+bin/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# ===== IntelliJ (if you switch later) =====
+.idea/
 *.iml
-*.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# ===== OS =====
+.DS_Store
+Thumbs.db
 
-### VS Code ###
-.vscode/
+# ===== Logs =====
+*.log
+
+# ===== Secrets (CRITICAL) =====
+src/main/resources/application-dev.properties
+src/main/resources/application-prod.properties
+.env
+
+# ===== Maven Wrapper (optional — you may keep these) =====
+# .mvn/wrapper/maven-wrapper.jar

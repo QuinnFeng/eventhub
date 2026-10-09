@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.eventhub.userservice.dto.CreateUserRequest;
+import com.eventhub.userservice.dto.UpdateUserRequest;
+import com.eventhub.userservice.dto.UpdateUserRoleRequest;
 import com.eventhub.userservice.dto.UserResponse;
 import com.eventhub.userservice.service.UserService;
 
@@ -32,6 +36,17 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> updateUser(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateUserRequest request) {
+
+        UserResponse response =
+                userService.updateUser(id, request);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -61,5 +76,25 @@ public class UserController {
         userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/admin-test")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminTest(Authentication authentication) {
+    	 return authentication.getName()
+    	            + " | "
+    	            + authentication.getAuthorities();
+    }
+    
+    @PutMapping("/{id}/role")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponse> updateUserRole(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateUserRoleRequest request) {
+
+        UserResponse response =
+                userService.updateUserRole(id, request);
+
+        return ResponseEntity.ok(response);
     }
 }
